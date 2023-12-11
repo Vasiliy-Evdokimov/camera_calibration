@@ -115,7 +115,14 @@ int collect_images()
         if (key == ' ')
         {
             count++;
-            sprintf(buf, "%s/%d.jpg", IMAGES_FOLDER_NAME.c_str(), count);
+
+#ifdef _WIN32
+            sprintf_s
+#elif __linux__
+            sprintf
+#endif
+            (buf, "%s/%d.jpg", IMAGES_FOLDER_NAME.c_str(), count);
+
             std::cout << buf << std::endl;
             imwrite(buf, frame);
             //
